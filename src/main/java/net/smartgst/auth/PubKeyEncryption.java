@@ -44,15 +44,5 @@ public class PubKeyEncryption {
         return new String(java.util.Base64.getEncoder().encode(encryptedByte));
     }
 
-    public String generateEncAppkey(byte[] key) {
-        try {
-            return encrypt(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
 }
 

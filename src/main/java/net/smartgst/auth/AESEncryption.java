@@ -76,7 +76,7 @@ public class AESEncryption {
         String appkey = generateSecureKey();
         System.out.println("App key in encoded : " + appkey);
         //Encrypt with GSTN public key
-        String encryptedAppkey = new PubKeyEncryption(pubKeyUrl).generateEncAppkey(decodeBase64StringTOByte(appkey));
+        String encryptedAppkey = new PubKeyEncryption(pubKeyUrl).encrypt(decodeBase64StringTOByte(appkey));
         System.out.println("Encrypted App Key ->" + encryptedAppkey);
 
 

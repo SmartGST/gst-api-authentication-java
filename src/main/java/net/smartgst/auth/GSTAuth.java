@@ -52,7 +52,7 @@ public class GSTAuth {
         //get appKey in bytes
         this.appKeyInBytes = aesEncryption.decodeBase64StringTOByte(appKey);
         //convert that bytes to an hmac string
-        this.appKeyEncryptedAndCoded = pubKeyEncryption.generateEncAppkey(appKeyInBytes);
+        this.appKeyEncryptedAndCoded = pubKeyEncryption.encrypt(appKeyInBytes);
     }
 
 
