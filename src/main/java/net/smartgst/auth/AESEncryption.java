@@ -29,7 +29,7 @@ public class AESEncryption {
     }
 
 
-    private String encodeBase64String(byte[] bytes) {
+    public String encodeBase64String(byte[] bytes) {
         return new String(java.util.Base64.getEncoder().encode(bytes));
     }
 
@@ -111,8 +111,8 @@ public class AESEncryption {
     public static void main(String args[]) throws Exception {
         InputStream pubKeyInpStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("GSTN_PublicKey.cer");
         AESEncryption aesEncryption = new AESEncryption();
-        aesEncryption.produceSampleData(pubKeyInpStream);
-        //aesEncryption.testData();
+        //aesEncryption.produceSampleData(pubKeyInpStream);
+        aesEncryption.testData();
 
     }
 }
