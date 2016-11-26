@@ -14,6 +14,8 @@ import java.util.UUID;
  */
 public class GSTAuth {
 
+    public static final String AUTHTOKEN = "AUTHTOKEN";
+    public static final String OTPREQUEST = "OTPREQUEST";
     private final String userName;
     private final String appKey;
     private final byte[] appKeyInBytes;
@@ -61,16 +63,16 @@ public class GSTAuth {
         String encryptedOTP = aesEncryption.encryptEK(otp.getBytes(), appKeyInBytes);
 
         JSONObject authTokenReq = new JSONObject();
-        authTokenReq.put("action", "AUTHTOKEN");
+        authTokenReq.put("action", AUTHTOKEN);
         authTokenReq.put("appkey", appKeyEncryptedAndCoded);
         authTokenReq.put("username", userName);
         authTokenReq.put("otp", encryptedOTP);
 
         HttpResponse<JsonNode> authTokenResp = Unirest.post(String.format("%s/%s", BASE_URL, AUTH_PATH))
-                .header("Content-Type", "application/json")
+                .header("Content-Type",APPLICATION_JSON)
                 .header("state-cd", state)
-                .header("clientid", "l7xx6df7496552824f15b7f4523c0a1fc114")
-                .header("client-secret", "f328fe52752349c893aa93adcffed8f5")
+                .header("clientid", clientId)
+                .header("client-secret", clientSecret)
                 .header("ip-usr", ipAddr)
                 .header("appkey", appKeyEncryptedAndCoded)
                 .header("txn", txn)
@@ -104,7 +106,7 @@ public class GSTAuth {
 
     public boolean otpRequest() throws Exception {
         JSONObject otpRequest = new JSONObject();
-        otpRequest.put("action", "OTPREQUEST");
+        otpRequest.put("action", OTPREQUEST);
         otpRequest.put("appkey", appKeyEncryptedAndCoded);
         otpRequest.put("username", userName);
 
