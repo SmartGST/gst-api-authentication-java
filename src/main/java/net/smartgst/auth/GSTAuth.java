@@ -37,6 +37,33 @@ public class GSTAuth {
     private String authToken;
     private byte[] authSEK;
 
+    public PubKeyEncryption getPubKeyEncryption() {
+        return pubKeyEncryption;
+    }
+
+    public AESEncryption getAesEncryption() {
+        return aesEncryption;
+    }
+
+    public byte[] getAuthSEK() {
+        return authSEK;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public byte[] getAppKeyInBytes() {
+        return appKeyInBytes;
+    }
+
+    public String getAppKeyEncryptedAndCoded() {
+        return appKeyEncryptedAndCoded;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
 
     public GSTAuth(String clientId, String clientSecret, String userName, String state,
                    String ipAddr, String txn, InputStream pubKeyInpStream) throws Exception {
