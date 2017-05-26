@@ -233,6 +233,12 @@
             <artifactId>httpmime</artifactId>
             <version>4.5.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner-java8</artifactId>
+            <version>1.0.9</version>
+        </dependency>
+
 
     </dependencies>
    

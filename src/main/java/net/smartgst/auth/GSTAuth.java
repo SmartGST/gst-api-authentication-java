@@ -27,7 +27,7 @@ public class GSTAuth {
     private String txn;
 
     private static final String BASE_URL = "http://devapi.gstsystem.co.in";
-    private static final String AUTH_PATH = "/taxpayerapi/v0.1/authenticate";
+    private static final String AUTH_PATH = "/taxpayerapi/v0.2/authenticate";
 
     //content-type value
     private static final String APPLICATION_JSON = "application/json";
@@ -65,10 +65,10 @@ public class GSTAuth {
         return authToken;
     }
 
-    public GSTAuth(String clientId, String clientSecret, String userName, String state,
+    public GSTAuth(GSTCredential credential, String userName, String state,
                    String ipAddr, String txn, InputStream pubKeyInpStream) throws Exception {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
+        this.clientId = credential.clientId();
+        this.clientSecret = credential.clientSecret();
         this.userName = userName;
         this.state = state;
         this.ipAddr = ipAddr;
@@ -91,7 +91,7 @@ public class GSTAuth {
 
         JSONObject authTokenReq = new JSONObject();
         authTokenReq.put("action", AUTHTOKEN);
-        authTokenReq.put("appkey", appKeyEncryptedAndCoded);
+        authTokenReq.put("app_key", appKeyEncryptedAndCoded);
         authTokenReq.put("username", userName);
         authTokenReq.put("otp", encryptedOTP);
 
@@ -101,7 +101,7 @@ public class GSTAuth {
                 .header("clientid", clientId)
                 .header("client-secret", clientSecret)
                 .header("ip-usr", ipAddr)
-                .header("appkey", appKeyEncryptedAndCoded)
+                .header("app_key", appKeyEncryptedAndCoded)
                 .header("txn", txn)
                 .body(new JsonNode(authTokenReq.toString()))
                 .asJson();
@@ -134,7 +134,7 @@ public class GSTAuth {
     public boolean otpRequest() throws Exception {
         JSONObject otpRequest = new JSONObject();
         otpRequest.put("action", OTPREQUEST);
-        otpRequest.put("appkey", appKeyEncryptedAndCoded);
+        otpRequest.put("app_key", appKeyEncryptedAndCoded);
         otpRequest.put("username", userName);
 
         HttpResponse<JsonNode> otpResp = Unirest.post(String.format("%s/%s", BASE_URL, AUTH_PATH))
@@ -142,7 +142,7 @@ public class GSTAuth {
                 .header("state-cd", state)
                 .header("username", userName)
                 .header("txn", txn)
-                .header("appkey", appKeyEncryptedAndCoded)
+                .header("app_key", appKeyEncryptedAndCoded)
                 .header("client-secret", clientSecret)
                 .header("ip-usr", ipAddr)
                 .header("Content-Type", APPLICATION_JSON)

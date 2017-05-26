@@ -1,5 +1,7 @@
 package net.smartgst.auth;
 
+import org.aeonbits.owner.ConfigFactory;
+
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -30,13 +32,18 @@ public class Main {
     private static final String IP_USR = "192.168.1.1";
 
     public static void main(String[] args) throws Exception {
-        InputStream pubKeyInpStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("GSTN_PublicKey.cer");
 
 
+        InputStream pubKeyInpStream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream("GSTN_G2A_SANDBOX_UAT_public.cer");
+
+        GSTCredential gstCredential = ConfigFactory.create(GSTCredential.class);
         GSTAuth gspAuth = new GSTAuth(
-                CLIENT_ID, CLIENT_SECRET,
+                gstCredential,
                 USER_NAME, STATE_CD, IP_USR,
                 TXN, pubKeyInpStream);
+
 
         if (gspAuth.otpRequest()) {
             System.out.println("OTP Request Success");
